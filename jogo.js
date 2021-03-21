@@ -103,19 +103,34 @@ const contexto = canvas.getContext('2d');
         }
     }
 
+/* ---------------------------- mensagemGetReady ---------------------------- */
 
+    const mensagenGetReady={
+        sx:134,
+        sy:0,
+        w:174,
+        h:152,
+        x:(canvas.width / 2) -174 / 2,
+        y:50,
 
-
-
-
+        desenha(){
+            contexto.drawImage(
+                sprites,
+                mensagenGetReady.sx,mensagenGetReady.sy,
+                mensagenGetReady.w,mensagenGetReady.h,
+                mensagenGetReady.x,mensagenGetReady.y,
+                mensagenGetReady.w,mensagenGetReady.h
+            );
+        }
+    }
 function loop(){
     
     flappyBird.atualiza();
     planodeFundo.desenha();
     chao.desenha();
     flappyBird.desenha();
-    
 
+    mensagenGetReady.desenha();
     
 
     requestAnimationFrame(loop)  
