@@ -83,7 +83,14 @@ const contexto = canvas.getContext('2d');
         altura:24,
         x:10,
         y:50,
-
+        gravidade:0.25,
+        Velocidade:0,
+        
+        atualiza(){
+            flappyBird.Velocidade= flappyBird.Velocidade + flappyBird.gravidade
+            
+            flappyBird.y = flappyBird.y + flappyBird.Velocidade
+        },
         
         desenha(){
             contexto.drawImage(
@@ -102,12 +109,14 @@ const contexto = canvas.getContext('2d');
 
 
 function loop(){
-
+    
+    flappyBird.atualiza();
     planodeFundo.desenha();
     chao.desenha();
     flappyBird.desenha();
+    
 
-    flappyBird.y = flappyBird.y +1 
+    
 
     requestAnimationFrame(loop)  
 }
