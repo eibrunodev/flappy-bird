@@ -103,36 +103,77 @@ const contexto = canvas.getContext('2d');
         }
     }
 
-/* ---------------------------- mensagemGetReady ---------------------------- */
+/* ---------------------------------- telas --------------------------------- */
 
-    const mensagenGetReady={
-        sx:134,
-        sy:0,
-        w:174,
-        h:152,
-        x:(canvas.width / 2) -174 / 2,
-        y:50,
-
-        desenha(){
-            contexto.drawImage(
-                sprites,
-                mensagenGetReady.sx,mensagenGetReady.sy,
-                mensagenGetReady.w,mensagenGetReady.h,
-                mensagenGetReady.x,mensagenGetReady.y,
-                mensagenGetReady.w,mensagenGetReady.h
-            );
-        }
+ const mensagemGetReady = {
+    sX: 134,
+    sY: 0,
+    w: 174,
+    h: 152,
+    x: (canvas.width / 2 ) - 174 / 2,
+    y: 50,
+    desenha() {
+        contexto.drawImage(
+            sprites,
+            mensagemGetReady.sX, mensagemGetReady.sY,
+            mensagemGetReady.w, mensagemGetReady.h,
+            mensagemGetReady.x, mensagemGetReady.y,
+            mensagemGetReady.w, mensagemGetReady.h
+        );
     }
-function loop(){
-    
-    flappyBird.atualiza();
-    planodeFundo.desenha();
-    chao.desenha();
-    flappyBird.desenha();
 
-    mensagenGetReady.desenha();
-    
+ }
 
-    requestAnimationFrame(loop)  
+//
+//telas
+//
+let telasAtiva = {};
+function mudaParaTela(novaTela) {
+    
+    telasAtiva = novaTela;  
 }
-loop()
+const Telas = {
+  INICIO: {
+        desenha() {
+            planodeFundo.desenha();
+            chao.desenha();
+            flappyBird.desenha();
+            mensagemGetReady.desenha()
+        },
+
+        click(){
+            mudaParaTela(Telas.JOGO);
+        },
+        atualiza(){
+
+        }
+  }  
+};
+
+Telas.JOGO = {
+    desenha() {
+        planodeFundo.desenha();
+        chao.desenha();
+        flappyBird.desenha();
+        
+    },
+    atualiza() {
+        flappyBird.atualiza();
+    }
+};
+
+function loop() {
+    telasAtiva.desenha();
+    telasAtiva.atualiza();
+    requestAnimationFrame(loop)
+}
+
+window.addEventListener('click',function(){
+    if(telasAtiva.click){
+        telasAtiva.click();
+    }
+})
+
+mudaParaTela(Telas.INICIO);
+loop();
+
