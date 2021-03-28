@@ -119,12 +119,10 @@ const contexto = canvas.getContext('2d');
                 atualiza(){
                     
                     if(fazColisao(flappyBird, globais.chao)){
-                        console.log('fez colisão')
                         mudaParaTela(Telas.INICIO)
                         setTimeout( ()=>{
                             som_HIT.play();
                         },300);
-                        
                         return ;
                     }
         
@@ -132,21 +130,29 @@ const contexto = canvas.getContext('2d');
                     flappyBird.y = flappyBird.y + flappyBird.Velocidade
                 },
                 movimentos: [
-                    { spritesX: 0, spritesY: 0, }, // asa pra cima
-                    { spritesX: 0, spritesY: 26, }, // asa no meio 
-                    { spritesX: 0, spritesY: 52, }, // asa pra baixo
-                    
+                    { spriteX: 0, spriteY: 0, }, // asa pra cima
+                    { spriteX: 0, spriteY: 26, }, // asa no meio 
+                    { spriteX: 0, spriteY: 52, }, // asa pra baixo
+                    { spriteX: 0, spriteY: 26, }, // asa no meio 
                   ],
                   frameAtual:0,
                   atulizaFrameAtual(){
+                    const intervaloDeFrames = 10;
+                    const passouporIntervalo = frames % intervaloDeFrames == 0;
+
+
+                    if(passouporIntervalo){
                     const baseDoIncremento = 1;
                     const incremento = baseDoIncremento + flappyBird.frameAtual;
                     const baseRepeticao = flappyBird.movimentos.length;
                     flappyBird.frameAtual = incremento % baseRepeticao
+                   // console.log(incremento)
+                    //console.log(baseRepeticao)
+                }
                   },
                 desenha(){
                     flappyBird.atulizaFrameAtual();
-                    const { spritesX, spritesY } = flappyBird.movimentos[flappyBird.frameAtual];
+                    const { spriteX, spriteY } = flappyBird.movimentos[flappyBird.frameAtual];
                     contexto.drawImage(
                         sprites, 
                         flappyBird.spriteX,flappyBird.spriteY,//sprite x sprite y 
