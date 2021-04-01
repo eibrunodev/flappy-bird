@@ -257,9 +257,9 @@ function criaCanos() {
             const cabecaDoFlappy = globais.flappyBird.y;
             const peDoFlappy = globais.flappyBird.y + globais.flappyBird.altura;
            
-            if(globais.flappyBird.x >= par.x){
+            if((globais.flappyBird.x + globais.flappyBird.largura ) >= par.x){
                 console.log('invadil canos')
-                if(cabecaDoFlappy <= par.canoCeu.Y) {
+                if(cabecaDoFlappy <= par.canoCeu.y) {
                     return true;
                 }
 
